@@ -1,2 +1,2 @@
 # BirdsWatching
-An application of display graphics of birds-watching datas
+An application for displaying graphics of birds-watching datas
