@@ -37,5 +37,5 @@ Makefile*
 #    folder   #
 ###############
 
-/build-BirdsWatchingApp-Desktop_Qt_5_5_0_MinGW_32bit-Debug/
-/build-BirdsWatchingApp-Desktop_Qt_5_5_0_MinGW_32bit-Release/
+/SourceCodes/build-BirdsWatchingApp-Desktop_Qt_5_5_0_MinGW_32bit-Debug/
+/SourceCodes/build-BirdsWatchingApp-Desktop_Qt_5_5_0_MinGW_32bit-Release/
