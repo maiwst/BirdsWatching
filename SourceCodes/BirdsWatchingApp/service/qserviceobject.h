@@ -12,10 +12,14 @@ public:
     explicit QServiceObject(QObject *parent = 0);
     void showObjectThreadID();
 
+    QStringList m_birdKinds;
+
 signals:
-    void again();
+    void sig_finishReading();
+
 public slots:
     void slotOfThread();
+    void slot_getBirdsList();
 };
 
 #endif // QSERVICEOBJECT_H

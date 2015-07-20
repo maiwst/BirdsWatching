@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QThread>
 #include "service/qserviceobject.h"
+#include "qchoosebird.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,8 +20,18 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QChooseBird *dlgChooseBird;
     QThread *serviceThread;
     QServiceObject *serviceObject;
+
+signals:
+    void sig_getBirdsList();
+
+public slots:
+    void slot_finishReading();
+
+private slots:
+    void ShowChooseBirdDlg();
 };
 
 #endif // MAINWINDOW_H

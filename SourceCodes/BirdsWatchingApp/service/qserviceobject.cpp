@@ -1,8 +1,11 @@
 #include "qserviceobject.h"
+#include "dummy_data.h"
 
-QServiceObject::QServiceObject(QObject *parent) : QObject(parent)
+
+QServiceObject::QServiceObject(QObject *parent)
+    : QObject(parent)
 {
-
+    m_birdKinds.clear();
 }
 
 void QServiceObject::showObjectThreadID()
@@ -13,5 +16,20 @@ void QServiceObject::showObjectThreadID()
 void QServiceObject::slotOfThread()
 {
     qDebug()<<" QServiceObject slot thread id = "<<QThread::currentThreadId();
-    emit again();
+}
+
+void QServiceObject::slot_getBirdsList()
+{
+    /****************************/
+    // call API of DB
+    /****************************/
+    qDebug()<<" QServiceObject::slot_getBirdsList thread id = "<<QThread::currentThreadId();
+    for(int i = 0; i < (int)(sizeof(BIRDS_DATA) / sizeof(BIRDS_DATA[0])); i++)
+    {
+        QString temp = QString(BIRDS_DATA[i][1]);
+        if(!m_birdKinds.contains(temp))
+            m_birdKinds.append(QString(BIRDS_DATA[i][1]));
+    }
+
+    emit sig_finishReading();
 }
