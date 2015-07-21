@@ -29,14 +29,26 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QListWidget" name="listWidget">
+  <widget class="QListWidget" name="lw_birdKindsListWidget">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>40</y>
-     <width>256</width>
-     <height>361</height>
+     <x>50</x>
+     <y>20</y>
+     <width>321</width>
+     <height>371</height>
     </rect>
+   </property>
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+   <property name="locale">
+    <locale language="Chinese" country="China"/>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
    </property>
   </widget>
  </widget>

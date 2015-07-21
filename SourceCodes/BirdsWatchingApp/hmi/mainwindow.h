@@ -19,19 +19,14 @@ public:
     ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
-    QChooseBird *dlgChooseBird;
-    QThread *serviceThread;
-    QServiceObject *serviceObject;
-
-signals:
-    void sig_getBirdsList();
+    Ui::MainWindow*     ui;
+    QThread*            serviceThread;
+    QServiceObject*     serviceObject;
+    QChooseBird*        dlgChooseBird;
+    QString             currentBird;
 
 public slots:
-    void slot_finishReading();
-
-private slots:
-    void ShowChooseBirdDlg();
+    void slot_setCurrentBird(QString str);
 };
 
 #endif // MAINWINDOW_H

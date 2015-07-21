@@ -16,7 +16,16 @@ public:
     ~QChooseBird();
 
 private:
-    Ui::QChooseBird *ui;
+    Ui::QChooseBird*    ui;
+    QStringList*        m_list;
+
+signals:
+    void sig_getBirdsList(QStringList* pList);
+    void sig_birdChosen(QString str);
+
+public slots:
+    void slot_ready2show();
+    void slot_finishReading();
 };
 
 #endif // QCHOOSEBIRD_H

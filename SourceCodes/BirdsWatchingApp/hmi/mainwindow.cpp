@@ -1,32 +1,29 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "windows.h"
+//#include "windows.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    //, dlgChooseBird(new QChooseBird(this))
+    , serviceThread(new QThread())
+    , serviceObject(new QServiceObject())
+    , dlgChooseBird(new QChooseBird(this))
+
 {
     ui->setupUi(this);
+    ui->lbl_currentBird->setText("NONE");
 
-    serviceThread = new QThread();
-    qDebug()<<"main thread id = "<<QThread::currentThreadId();
-    serviceObject = new QServiceObject();
-    serviceObject->moveToThread(serviceThread);
     connect(serviceThread, SIGNAL(started()), serviceObject, SLOT(slotOfThread()));
+    connect(ui->btn_chooseBird, SIGNAL(clicked()), dlgChooseBird, SLOT(slot_ready2show()));
+    connect(dlgChooseBird, SIGNAL(sig_getBirdsList(QStringList*)), serviceObject, SLOT(slot_getBirdsList(QStringList*)));
+    connect(serviceObject, SIGNAL(sig_finishReading()), dlgChooseBird, SLOT(slot_finishReading()));
+    connect(dlgChooseBird, SIGNAL(sig_birdChosen(QString)), this, SLOT(slot_setCurrentBird(QString)));
+
+    qDebug()<<"main thread id = "<<QThread::currentThreadId();
+    serviceObject->moveToThread(serviceThread);
     serviceObject->showObjectThreadID();
     serviceThread->start();
 
-    connect(ui->btn_chooseBird, SIGNAL(clicked()), this, SLOT(ShowChooseBirdDlg()));
-    //connect(ui->btn_chooseBird, SIGNAL(clicked()), dlgChooseBird, SLOT(show()));
-    connect(this, SIGNAL(sig_getBirdsList()), serviceObject, SLOT(slot_getBirdsList()));
-    connect(serviceObject, SIGNAL(sig_finishReading()), this, SLOT(slot_finishReading()));
-
-    ui->lbl_currentBird->setText("NONE");
-
-
-    qDebug()<<"before emitting, str is "<<serviceObject->m_birdKinds;
-    emit sig_getBirdsList();
 }
 
 MainWindow::~MainWindow()
@@ -34,16 +31,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::slot_finishReading()
+void MainWindow::slot_setCurrentBird(QString str)
 {
-    qDebug()<<"MainWindow::slot_finishReading() thread id = "<<QThread::currentThreadId();
-    qDebug()<<"after emitting, str is "<<serviceObject->m_birdKinds;
-}
-
-void MainWindow::ShowChooseBirdDlg()
-{
-    if(!dlgChooseBird)
-        dlgChooseBird = new QChooseBird(this);
-
-    dlgChooseBird->show();
+    currentBird = str;
+    ui->lbl_currentBird->setText(currentBird);
 }

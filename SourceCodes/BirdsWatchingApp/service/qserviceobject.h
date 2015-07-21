@@ -19,7 +19,7 @@ signals:
 
 public slots:
     void slotOfThread();
-    void slot_getBirdsList();
+    void slot_getBirdsList(QStringList* pList);
 };
 
 #endif // QSERVICEOBJECT_H
